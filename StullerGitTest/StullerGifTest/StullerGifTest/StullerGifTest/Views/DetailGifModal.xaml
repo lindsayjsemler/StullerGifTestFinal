@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:StullerGifTest"
+    BindingContext="StullerGifTest.DetailGifViewModel"
+    x:Class="StullerGifTest.Views.DetailGifModal">
+
+    <StackLayout>
+        <Button
+            Text="X"
+            Command="{Binding PopModelCommand}"
+            BackgroundColor="LightBlue"
+            TextColor="Black"
+            HorizontalOptions="Start"
+            HeightRequest="40"
+            WidthRequest="40"
+            Margin="5"/>
+
+         <Image x:Name="GifImage"
+                Margin="10"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                HeightRequest="300"
+                WidthRequest="200"
+                IsAnimationPlaying="false"
+                Source="{Binding gifModel.GifImageSource}"
+                Aspect="AspectFill"/>
+
+        <!-- This does not work, turns out gifs do not animate in this old version of
+            Xamarin Forms and was a known bug, in hindsight I should have implemented this both in iOS and
+            Android since this seems to be and Android only bug! If I had the time to re-do the entire project
+            and copy over everything, I would try that next and have this as an iOS only app instead of picking Android
+            I am keeping IsAnimationPlaying="True" out of the image in hopes the image itself will show up.
+            I have tried to add the image with and image source of the png as you can see in the GifModel, but
+            that doesn't show up either! -->
+
+        <!-- <Image x:Name="GifImage"
+           Source="{Binding gifModel.PngImageSource}"
+           IsAnimationPlaying="True"
+           HorizontalOptions="CenterAndExpand"
+           VerticalOptions="CenterAndExpand"/> -->
+
+        <Button
+            Margin="10,10"
+            x:Name="CopyBtn"
+            BackgroundColor="LightBlue"
+            Command="{Binding CopyLink}"
+            CommandParameter="{Binding gifModel.URLLink}"
+            HeightRequest="50"
+            IsEnabled="true"
+            Text="Copy Link"
+            TextColor="Black"
+            VerticalOptions="Center"
+            WidthRequest="100" />
+
+
+    </StackLayout>
+
+
+</ContentPage>
+

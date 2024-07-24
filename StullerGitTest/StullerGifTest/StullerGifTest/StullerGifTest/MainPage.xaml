@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StullerGifTest"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
+             xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             BindingContext="StullerGifTest.MainPageViewModel"
+             x:Class="StullerGifTest.MainPage">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label 
+                    HorizontalOptions="Center"
+                    FontSize="24"
+                    Text="Gif Search Application"
+                    VerticalOptions="Start"/>
+                
+                
+                 <SearchBar 
+                   Margin="10"
+                   x:Name="SearchBar"
+                   HeightRequest="100"
+                   Placeholder="Search gifs..."
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}">
+                   </SearchBar> 
+
+            
+            <StackLayout x:Name="MainCollectionView">
+              <CollectionView 
+                    
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    HeightRequest="600" SelectionMode="Single"  SelectedItem="{Binding SelectedGIFModel , Mode=TwoWay}"
+                    ItemsSource="{Binding SearchCollection}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" />
+                    </CollectionView.ItemsLayout>
+
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Image Source="{Binding GifImageSource}" IsAnimationPlaying="False"
+                                   Aspect="AspectFill"/>
+
+                                <Label
+                                    Margin="0,5"
+                                    HorizontalOptions="Center"
+                                    FontSize="12"
+                                    Text="{Binding SearchName}"
+                                    VerticalOptions="Start"/>
+
+                                
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Path=BindingContext.ImageTappedAsync, Source={x:Reference MainCollectionView}}"
+                                        CommandParameter="{Binding .}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView> 
+                    
+            </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+
+
+</ContentPage>
+
